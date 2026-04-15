@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let votesDB = {};
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/results');
+            const response = await fetch('https://evoting2.onrender.com/api/results');
             votesDB = await response.json();
         } catch (error) {
             console.error("Error fetching votes:", error);
@@ -164,117 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let votesDB = {};
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/results');
+            const response = await fetch('https://evoting2.onrender.com/api/results');
             votesDB = await response.json();
         } catch (error) {
             console.error("Error fetching votes:", error);
         }
-        
-        let partyVotes = {};
-        let totalStateVotes = 0;
-
-        masterCandidateList.forEach(candidate => {
-            if (selectedState === "All" || candidate.state === selectedState) {
-                const votes = votesDB[candidate.name] || 0;
-                totalStateVotes += votes;
-                
-                if (!partyVotes[candidate.party]) {
-                    partyVotes[candidate.party] = 0;
-                }
-                partyVotes[candidate.party] += votes;
-            }
-        });
-
-        let partyArray = Object.keys(partyVotes).map(party => {
-            return { party: party, votes: partyVotes[party] };
-        });
-
-        partyArray.sort((a, b) => b.votes - a.votes);
-
-        const maxVotes = partyArray.length > 0 ? partyArray[0].votes : 0;
-
-        if (totalStateVotes === 0) {
-            leadingPartyBanner.innerHTML = `Waiting for votes to be cast in <b>${selectedState}</b>.`;
-            leadingPartyBanner.style.borderLeftColor = "#6c757d";
-        } else {
-            const leadingParty = partyArray[0].party;
-            leadingPartyBanner.innerHTML = `⭐ The <b>${leadingParty}</b> is currently leading the overall tally in <b>${selectedState}</b>!`;
-            leadingPartyBanner.style.borderLeftColor = "#28a745";
-        }
-
-        partyArray.forEach(p => {
-            const tr = document.createElement('tr');
-            
-            let percentage = 0;
-            if (totalStateVotes > 0) {
-                percentage = ((p.votes / totalStateVotes) * 100).toFixed(1);
-            }
-
-            let statusHtml = `<span style="color: #6c757d;">-</span>`;
-            if (p.votes === maxVotes && p.votes > 0) {
-                tr.classList.add('leader-row'); 
-                statusHtml = `⭐ <span style="color: #28a745; font-weight: bold;">Leading</span>`;
-            }
-
-            tr.innerHTML = `
-                <td style="font-weight: bold; font-size: 16px;">${p.party}</td>
-                <td style="font-size: 18px;">${p.votes}</td>
-                <td>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="width: 45px; font-weight: bold;">${percentage}%</span>
-                        <div style="background: #e9ecef; width: 100%; height: 10px; border-radius: 5px; overflow: hidden;">
-                            <div style="background: #007bff; width: ${percentage}%; height: 100%;"></div>
-                        </div>
-                    </div>
-                </td>
-                <td>${statusHtml}</td>
-            `;
-            tallyTableBody.appendChild(tr);
-        });
-    }
-
-    stateFilter.addEventListener('change', (e) => {
-        updateConstituencyDropdown(e.target.value);
-        loadVotingData(e.target.value, "All"); 
-    });
-    
-    constituencyFilter.addEventListener('change', () => {
-        loadVotingData(stateFilter.value, constituencyFilter.value);
-    });
-    
-    tallyStateFilter.addEventListener('change', (e) => {
-        loadStateTally(e.target.value);
-    });
-
-    document.getElementById('btn-refresh').addEventListener('click', () => {
-        loadVotingData(stateFilter.value, constituencyFilter.value);
-    });
-
-    document.getElementById('btn-admin-logout').addEventListener('click', () => {
-        sessionStorage.removeItem('loggedInAdmin');
-        window.location.href = 'index.html';
-    });
-
-    const eciResetBtn = document.getElementById('btn-eci-reset');
-    
-    if (loggedInUser === 'eci') {
-        eciResetBtn.classList.remove('hidden');
-    }
-
-    eciResetBtn.addEventListener('click', async () => {
-        const confirmFirst = confirm("🚨 WARNING: You are about to wipe ALL election data. This cannot be undone. Proceed?");
-        
-        if (confirmFirst) {
-            const confirmSecond = confirm("FINAL WARNING: Are you absolutely sure? Type OK to delete all votes.");
-            if (confirmSecond) {
-                await fetch('http://127.0.0.1:5000/api/reset', { method: 'POST' });
-                loadVotingData(stateFilter.value, constituencyFilter.value);
-                loadStateTally(tallyStateFilter.value);
-                alert("Election Data has been completely reset by ECI Command.");
-            }
-        }
-    });
-
-    updateConstituencyDropdown("All"); 
-    loadVotingData("All", "All"); 
-});
