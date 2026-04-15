@@ -1,4 +1,3 @@
-// --- MASTER CANDIDATE DATABASE ---
 const constituencyDatabase = {
     "Singur": [
         { name: "Debasish Chatterjee", party: "CMIP", symbolUrl: "cmip.png" },
@@ -29,11 +28,9 @@ const constituencyDatabase = {
     ]
 };
 
-// --- LIVE SERVER VOTING LOGIC ---
-// This function sends the vote directly to your Python backend
 async function castVote(candidateName) {
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/vote', {
+        const response = await fetch('https://evoting2.onrender.com/api/vote', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ candidate: candidateName })
@@ -43,16 +40,11 @@ async function castVote(candidateName) {
         
         if (result.success) {
             alert("Vote successfully recorded for " + candidateName);
-            // Optional: Redirect the voter to a "Thank You" page here
-            // window.location.href = 'thank-you.html';
         } else {
             alert("Failed to record vote. Please try again.");
         }
     } catch (error) {
-        alert("Server error. Please ensure the backend (app.py) is running.");
+        alert("Server error. Please ensure the backend is running.");
         console.error("Voting Error:", error);
     }
 }
-
-// NOTE: Leave your existing code that creates the HTML buttons and images below this line!
-// (e.g., your document.getElementById('candidate-list').innerHTML = ... code)
