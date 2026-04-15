@@ -3,13 +3,12 @@ import os
 import random
 import smtplib
 from email.mime.text import MIMEText
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.')
 CORS(app)
 
-# PUT YOUR ACTUAL SENDER EMAIL AND APP PASSWORD HERE
 SENDER_EMAIL = "chandrajitbanerjee.bcrec@gmail.com"
 SENDER_APP_PASSWORD = "rdlb rnsr ilfw ioay"
 
@@ -45,6 +44,14 @@ def send_otp_email(recipient_email, otp):
             server.sendmail(SENDER_EMAIL, recipient_email, msg.as_string())
     except Exception as e:
         print(f"Failed to send email: {e}")
+
+@app.route('/')
+def index():
+    return send_from_directory('.', 'admin-login.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('.', path)
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -92,4 +99,3 @@ def reset_votes():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
-
