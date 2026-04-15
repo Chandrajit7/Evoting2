@@ -47,7 +47,9 @@ def send_otp_email(recipient_email, otp):
 
 @app.route('/')
 def index():
-    return send_from_directory('.', 'admin-login.html')
+    if 'admin-login.html' not in os.listdir(BASE_DIR):
+        return jsonify({"error": "Missing file", "files_here": os.listdir(BASE_DIR)})
+    return send_from_directory(BASE_DIR, 'admin-login.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
