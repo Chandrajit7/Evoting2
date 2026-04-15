@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Election Control</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <span class="shield-icon">🛡️</span>
+            <h2>Admin Panel</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" id="nav-live" class="active">Live Dashboard</a></li>
+            <li><a href="#" id="nav-tally">State-wise Tally</a></li>
+            <li><a href="#">Manage Candidates</a></li>
+            <li><a href="#">Voter Database</a></li>
+            <li><a href="#">System Settings</a></li>
+        </ul>
+        
+        <button id="btn-eci-reset" class="logout-btn hidden" style="background-color: #ffc107; color: #000; margin-bottom: 10px;">🚨 Reset Election</button>
+        
+        <button id="btn-admin-logout" class="logout-btn">Log Out Securely</button>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1 id="page-title">Election Overview</h1>
+            <div class="security-badge">Session Encrypted & Active</div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Votes Cast</h3>
+                <p id="total-votes-count" class="stat-number">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>System Status</h3>
+                <p class="stat-number" style="color: #28a745;">Online</p>
+            </div>
+            <div class="stat-card">
+                <h3>Active States</h3>
+                <p class="stat-number">4</p>
+            </div>
+        </div>
+
+        <div id="view-live-dashboard" class="results-section">
+            <div class="results-header">
+                <h2>Live Candidate Tally</h2>
+                <div style="display: flex; gap: 10px;">
+                    <select id="state-filter" class="secondary-btn" style="padding: 8px; font-weight: bold;">
+                        <option value="All">🌍 All States</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                    </select>
+                    <select id="constituency-filter" class="secondary-btn" style="padding: 8px; font-weight: bold;">
+                        <option value="All">🏙️ All Constituencies</option>
+                    </select>
+                    <button id="btn-refresh" class="secondary-btn">🔄 Refresh</button>
+                </div>
+            </div>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Candidate Name</th>
+                        <th>State</th>
+                        <th>Constituency</th>
+                        <th>Total Votes</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="view-state-tally" class="results-section hidden">
+            <div class="results-header">
+                <h2>State-wise Party Tally</h2>
+                <div style="display: flex; gap: 10px;">
+                    <select id="tally-state-filter" class="secondary-btn" style="padding: 8px; font-weight: bold;">
+                        <option value="All">🌍 All States Overview</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="leading-party-banner" style="margin-bottom: 20px; padding: 15px; background: #e8f4f8; border-radius: 8px; border-left: 5px solid #007bff; font-size: 18px;">
+                Select a state to see which party is leading.
+            </div>
+            
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Political Party</th>
+                        <th>Total Votes Received</th>
+                        <th>Vote Share %</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tally-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

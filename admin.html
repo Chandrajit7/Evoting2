@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Security Verification</title>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        .success-text { color: #28a745; font-size: 14px; margin-top: 15px; }
+        
+        /* --- NEW MODERN OTP UI STYLING --- */
+        .otp-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            margin-top: 15px;
+        }
+        .otp-digit {
+            width: 45px;
+            height: 55px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .otp-digit:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            background: #ffffff;
+            transform: scale(1.05);
+        }
+        .shield-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="admin-step-1" class="box-container">
+        <div class="shield-icon">🛡️</div>
+        <h2>Admin Portal</h2>
+        <p style="color: #555; margin-bottom: 20px;">Enter your admin credentials.</p>
+        <form id="admin-login-form">
+            <div class="input-group">
+                <label for="admin-id">Admin ID</label>
+                <input type="text" id="admin-id" required placeholder="e.g., admin_chief">
+            </div>
+            <div class="input-group">
+                <label for="admin-password">Password</label>
+                <input type="password" id="admin-password" required>
+            </div>
+            <button type="submit" class="action-btn">Next Step</button>
+            <p id="step-1-error" class="error-text"></p>
+        </form>
+    </div>
+
+    <div id="admin-step-2" class="box-container hidden">
+        <div class="shield-icon">📱</div>
+        <h2>Two-Factor Auth</h2>
+        <p style="color: #555; margin-bottom: 10px;">An OTP has been sent to the registered Admin device.</p>
+        
+        <form id="otp-form">
+            <div class="otp-container" id="otp-inputs">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+                <input type="text" class="otp-digit" maxlength="1" required autocomplete="off">
+            </div>
+
+            <button type="submit" class="action-btn" style="background-color: #28a745;">Verify & Login</button>
+            <button type="button" id="btn-back-login" class="secondary-btn">Cancel</button>
+            <p id="step-2-error" class="error-text"></p>
+            <p id="otp-sent-msg" class="success-text"></p>
+        </form>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

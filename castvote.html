@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cast Vote</title>
+    <link rel="stylesheet" href="castvote.css">
+    <style>
+        .election-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #display-election-name {
+            font-size: 22px;
+            color: #007bff;
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+        #display-constituency-info {
+            font-size: 18px;
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box-container">
+        <div class="election-header">
+            <h2 id="display-election-name"></h2>
+            <h3 id="display-constituency-info"></h3>
+        </div>
+
+        <form id="vote-form">
+            <div class="candidate-list" id="dynamic-candidate-list">
+                </div>
+
+            <button type="submit" class="action-btn">Submit Vote</button>
+            <button type="button" id="btn-back" class="secondary-btn">Back to Dashboard</button>
+        </form>
+    </div>
+
+    <div id="confirmation-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>Confirm Your Vote</h3>
+            <p>Are you sure you want to vote for <br><strong id="selected-candidate-name"></strong>?</p>
+            <p class="warning-text">This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="btn-confirm-vote" class="action-btn">Confirm Vote</button>
+                <button id="btn-cancel-vote" class="secondary-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="castvote.js"></script>
+</body>
+</html>

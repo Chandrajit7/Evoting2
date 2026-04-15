@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div id="login-container" class="box-container">
+        <h2>Voter Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="voter-id">Voter ID</label>
+                <input type="text" id="voter-id" required placeholder="e.g., V101">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="e.g., pass123">
+            </div>
+            <button type="submit" class="action-btn">Login</button>
+            <p id="error-message" class="error-text"></p>
+        </form>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

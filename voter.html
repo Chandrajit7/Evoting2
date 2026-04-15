@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Dashboard</title>
+    <link rel="stylesheet" href="voter.css">
+</head>
+<body>
+
+    <div id="dashboard-container" class="dashboard-wrapper">
+        <h2 class="corner-welcome">Welcome, <span id="welcome-name"></span></h2>
+        <button id="btn-logout" class="corner-logout">Logout</button>
+        
+        <button id="btn-profile" class="portal-btn btn-profile-bg">1. View Profile</button>
+        <button id="btn-cast-vote" class="portal-btn btn-vote-bg">2. Cast Vote</button>
+    </div>
+
+    <div id="profile-container" class="box-container hidden">
+        <h2>Voter Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> <span id="p-name"></span></p>
+            <p><strong>Father's Name:</strong> <span id="p-father"></span></p>
+            <p><strong>Address:</strong> <span id="p-address"></span></p>
+            <p><strong>Contact:</strong> <span id="p-contact"></span></p>
+            <p><strong>Constituency Name:</strong> <span id="p-const-name"></span></p>
+            <p><strong>Constituency No:</strong> <span id="p-const-no"></span></p>
+        </div>
+        <button id="btn-edit-profile" class="action-btn" style="margin-top: 15px;">Edit Details</button>
+        <button id="btn-back-dashboard" class="secondary-btn">Back to Dashboard</button>
+    </div>
+
+    <div id="edit-profile-container" class="box-container hidden">
+        <h2>Edit Details</h2>
+        <form id="edit-profile-form">
+            <div class="input-group">
+                <label for="edit-name">Name</label>
+                <input type="text" id="edit-name" required>
+            </div>
+            <div class="input-group">
+                <label for="edit-father">Father's Name</label>
+                <input type="text" id="edit-father" required>
+            </div>
+            <div class="input-group">
+                <label for="edit-address">Address</label>
+                <input type="text" id="edit-address" required>
+            </div>
+            <div class="input-group">
+                <label for="edit-contact">Contact Number</label>
+                <input type="text" id="edit-contact" required>
+            </div>
+            <button type="submit" class="action-btn">Save Changes</button>
+            <button type="button" id="btn-cancel-edit" class="secondary-btn">Cancel</button>
+        </form>
+    </div>
+
+    <script src="voter.js"></script>
+</body>
+</html>
